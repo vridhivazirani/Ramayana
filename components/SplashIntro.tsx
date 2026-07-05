@@ -101,7 +101,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
           </button>
 
           {/* ════════════════════════════════════════════════════
-              PHASE 1 — PHOTO FLIPBOOK (full-bleed bg + SVG text mask)
+              PHASE 1 — PHOTOS IN BACKGROUND, RAMAYANA ON TOP
           ════════════════════════════════════════════════════ */}
           <AnimatePresence>
             {phase === 'flipping' && (
@@ -112,35 +112,42 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
                 className="absolute inset-0 flex flex-col items-center justify-center"
                 style={{ zIndex: 10 }}
               >
-                {/* Full-bleed photo behind everything */}
+                {/* ── Cycling background photo ── */}
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={frameIndex}
                     initial={{ opacity: 0, scale: 1.06 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.97 }}
-                    transition={{ duration: 0.35, ease: 'easeInOut' }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.45, ease: 'easeInOut' }}
                     className="absolute inset-0"
                   >
                     <Image
                       src={PHOTO_FRAMES[frameIndex].src}
                       alt={PHOTO_FRAMES[frameIndex].label}
                       fill priority className="object-cover"
-                      style={{ filter: 'brightness(0.38) saturate(1.3)' }}
+                      style={{ filter: 'brightness(0.32) saturate(1.2)' }}
                     />
                     <div className="absolute inset-0" style={{
-                      background: 'linear-gradient(to top, rgba(8,6,4,0.95) 0%, rgba(8,6,4,0.15) 50%, rgba(8,6,4,0.5) 100%)',
+                      background: 'linear-gradient(to top, rgba(8,6,4,0.97) 0%, rgba(8,6,4,0.5) 45%, rgba(8,6,4,0.65) 100%)',
                     }} />
                   </motion.div>
                 </AnimatePresence>
 
-                {/* RAMAYANA text mask — photo shows INSIDE the letters */}
-                <div className="relative w-full flex flex-col items-center" style={{ zIndex: 5 }}>
-                  <svg
-                    viewBox="0 0 1000 200"
-                    style={{ width: 'min(860px, 88vw)', height: 'auto', filter: 'drop-shadow(0 0 24px rgba(44,24,16,0.7))' }}
-                  >
+                {/* ── RAMAYANA golden title always on top ── */}
+                <div className="relative w-full flex flex-col items-center gap-5" style={{ zIndex: 5 }}>
+                  <svg viewBox="0 0 1000 200" style={{ width: 'min(860px, 88vw)', height: 'auto' }}>
                     <defs>
+                      <linearGradient id="flip-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%"   stopColor="#FDEFC0" />
+                        <stop offset="30%"  stopColor="#ECC068" />
+                        <stop offset="70%"  stopColor="#C4872A" />
+                        <stop offset="100%" stopColor="#7A2E10" />
+                      </linearGradient>
+                      <filter id="flip-glow">
+                        <feGaussianBlur stdDeviation="7" result="b" />
+                        <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+                      </filter>
                       <mask id="flip-mask">
                         <rect width="1000" height="200" fill="black" />
                         <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central"
@@ -149,39 +156,28 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
                           RAMAYANA
                         </text>
                       </mask>
-                      <filter id="flip-glow">
-                        <feGaussianBlur stdDeviation="3" result="b" />
-                        <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-                      </filter>
                     </defs>
-
-                    {/* Photo cropped into text shape */}
+                    {/* Gold fill */}
                     <g mask="url(#flip-mask)">
-                      <image
-                        href={PHOTO_FRAMES[frameIndex].src}
-                        x="0" y="0" width="1000" height="200"
-                        preserveAspectRatio="xMidYMid slice"
-                        style={{ filter: 'brightness(1.5) saturate(1.5) contrast(1.1)' }}
-                      />
+                      <rect width="1000" height="200" fill="url(#flip-gold)" />
                     </g>
-
-                    {/* Subtle outer glow on the text shape */}
+                    {/* Warm glow halo */}
                     <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central"
-                      fill="none" stroke="rgba(196,135,42,0.35)" strokeWidth="1.5"
+                      fill="none" stroke="#E8B566" strokeWidth="1.5"
                       filter="url(#flip-glow)"
-                      style={{ fontSize: '112px', fontWeight: 900, letterSpacing: '0.15em', fontFamily: 'serif' }}>
+                      style={{ fontSize: '112px', fontWeight: 900, letterSpacing: '0.15em', fontFamily: 'serif', opacity: 0.55 }}>
                       RAMAYANA
                     </text>
                   </svg>
 
-                  {/* Caption below */}
+                  {/* Caption */}
                   <AnimatePresence mode="wait">
                     <motion.p
                       key={frameIndex}
-                      initial={{ opacity: 0, y: 6 }} animate={{ opacity: 0.7, y: 0 }} exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="mt-5 font-serif text-xs tracking-[0.28em] uppercase text-center"
-                      style={{ color: '#C4872A' }}
+                      initial={{ opacity: 0, y: 8 }} animate={{ opacity: 0.8, y: 0 }} exit={{ opacity: 0 }}
+                      transition={{ duration: 0.35 }}
+                      className="font-serif text-xs tracking-[0.3em] uppercase text-center"
+                      style={{ color: 'rgba(196,135,42,0.9)' }}
                     >
                       {PHOTO_FRAMES[frameIndex].label}
                     </motion.p>
