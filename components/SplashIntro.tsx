@@ -4,14 +4,17 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
-type Phase = 'flipping' | 'title' | 'bow' | 'fadeout';
+type Phase = 'flipping' | 'title' | 'fadeout';
 
 const PHOTO_FRAMES = [
-  { src: '/intro/ayodhya.png',        label: 'Ayodhya — The Golden Kingdom' },
-  { src: '/intro/rama_bow.png',       label: 'Rama — The Divine Archer' },
-  { src: '/intro/hanuman_flying.png', label: 'Hanuman — Messenger of the Gods' },
-  { src: '/intro/ram_setu.png',       label: 'Ram Setu — Bridge Across the Sea' },
-  { src: '/intro/lanka_burning.png',  label: 'Lanka — The Fall of Darkness' },
+  { src: '/intro/ayodhya.png',          label: 'Ayodhya — The Golden Kingdom' },
+  { src: '/intro/sita_abduction.png',   label: 'Sita — The Abduction' },
+  { src: '/intro/ravana.png',           label: 'Ravana — The Demon King' },
+  { src: '/intro/rama_bow.png',         label: 'Rama — The Divine Archer' },
+  { src: '/intro/hanuman_flying.png',   label: 'Hanuman — Messenger of the Gods' },
+  { src: '/intro/ram_setu.png',         label: 'Ram Setu — Bridge Across the Sea' },
+  { src: '/intro/lanka_burning.png',    label: 'Lanka — The Fall of Darkness' },
+  { src: '/intro/rama_sita_reunion.png',label: 'Rama & Sita — Forever United' },
 ];
 
 interface SplashIntroProps {
@@ -20,10 +23,8 @@ interface SplashIntroProps {
 }
 
 export default function SplashIntro({ onComplete, forcePlay = false }: SplashIntroProps) {
-  const [phase, setPhase]         = useState<Phase>('flipping');
+  const [phase, setPhase]           = useState<Phase>('flipping');
   const [frameIndex, setFrameIndex] = useState(0);
-  const [bowZoom, setBowZoom]     = useState(false);
-  const [bowFlash, setBowFlash]   = useState(false);
 
   // Skip if already played
   useEffect(() => {
@@ -44,24 +45,15 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
       });
     }, 420);
 
-    const timer = setTimeout(() => setPhase('title'), 2600);
+    const timer = setTimeout(() => setPhase('title'), 3800);
     return () => { clearInterval(interval); clearTimeout(timer); };
   }, [phase]);
 
   // ── Phase: title ─────────────────────────────────────────────
   useEffect(() => {
     if (phase !== 'title') return;
-    const timer = setTimeout(() => setPhase('bow'), 1600);
+    const timer = setTimeout(() => setPhase('fadeout'), 1600);
     return () => clearTimeout(timer);
-  }, [phase]);
-
-  // ── Phase: bow ───────────────────────────────────────────────
-  useEffect(() => {
-    if (phase !== 'bow') return;
-    const t1 = setTimeout(() => setBowZoom(true),  500);
-    const t2 = setTimeout(() => setBowFlash(true), 1300);
-    const t3 = setTimeout(() => setPhase('fadeout'), 1700);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [phase]);
 
   // ── Phase: fadeout ───────────────────────────────────────────
@@ -281,49 +273,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
             )}
           </AnimatePresence>
 
-          {/* ════════════════════════════════════════════════════
-              PHASE 3 — BOW FINALE
-          ════════════════════════════════════════════════════ */}
-          <AnimatePresence>
-            {phase === 'bow' && (
-              <motion.div
-                key="bow"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0"
-                style={{ zIndex: 10 }}
-              >
-                {/* Bow photo — zooms into center */}
-                <motion.div
-                  className="absolute inset-0"
-                  initial={{ scale: 1 }}
-                  animate={{ scale: bowZoom ? 1.4 : 1 }}
-                  transition={{ duration: 1.2, ease: 'easeIn' }}
-                >
-                  <Image
-                    src="/intro/bow_closeup.png"
-                    alt="Divine Bow"
-                    fill className="object-cover"
-                    style={{ filter: 'brightness(0.7) saturate(1.4) contrast(1.1)' }}
-                  />
-                  <div className="absolute inset-0" style={{
-                    background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.75) 100%)',
-                  }} />
-                </motion.div>
 
-                {/* White flash on release */}
-                {bowFlash && (
-                  <motion.div
-                    className="absolute inset-0"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0, 1, 0] }}
-                    transition={{ duration: 0.4 }}
-                    style={{ backgroundColor: '#FFF8E0', zIndex: 20 }}
-                  />
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
 
         </motion.div>
       )}
