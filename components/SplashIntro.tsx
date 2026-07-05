@@ -8,7 +8,7 @@ import Image from 'next/image';
 const SCENES = [
   {
     src: '/intro/hanuman_heart.png',
-    duration: 2800,
+    duration: 1400,
     caption: 'In his heart, Rama & Sita reside forever',
     zoom: 1.06,
   },
@@ -78,7 +78,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
 
     // Show title text after first scene settles
     if (sceneIndex === 0) {
-      const t = setTimeout(() => setShowTitle(true), 600);
+      const t = setTimeout(() => setShowTitle(true), 300);
       return () => clearTimeout(t);
     }
 
