@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Earth-tone palette */
+  --ochre: #C4872A;
+  --ochre-light: #E8B566;
+  --ochre-dark: #9B6820;
+  --terracotta: #B85C38;
+  --terracotta-light: #D4795A;
+  --terracotta-dark: #8C3D22;
+  --sage: #5C7A4E;
+  --sage-light: #7D9E6E;
+  --sage-dark: #3E5434;
+  --parchment: #F5EDD6;
+  --parchment-dark: #EDE0C0;
+  --ink: #2C1810;
+  --ink-light: #4A2E20;
+  --stone: #8B7355;
+  --stone-light: #B5A080;
+  --stone-lighter: #D4C5A9;
+  --mist: #F9F5EE;
+  --charcoal: #3D3028;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--mist);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--ink);
+  line-height: 1.25;
+}
+
+/* Leaflet z-index corrections */
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.leaflet-container {
+  overflow: hidden;
+}
+
+.leaflet-marker-icon {
+  user-select: none;
+}
+
+/* Custom marker styles */
+.marker-traditional {
+  filter: drop-shadow(0 2px 4px rgba(196, 135, 42, 0.5));
+}
+.marker-disputed {
+  filter: drop-shadow(0 2px 4px rgba(184, 92, 56, 0.5));
+}
+.marker-archaeological {
+  filter: drop-shadow(0 2px 4px rgba(92, 122, 78, 0.5));
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--parchment-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--stone);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ochre-dark);
+}
+
+/* Panel animations */
+.panel-backdrop {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Source citation list */
+.source-citation {
+  font-size: 0.75rem;
+  color: var(--stone);
+  font-style: italic;
+  padding-left: 1rem;
+  border-left: 2px solid var(--ochre-light);
+}
+
+/* Kanda badge */
+.kanda-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Timeline step cards */
+.timeline-card {
+  background: linear-gradient(135deg, #fff9f0 0%, #f5edd6 100%);
+  border: 1px solid var(--stone-lighter);
+  transition: all 0.2s ease;
+}
+.timeline-card:hover, .timeline-card.active {
+  border-color: var(--ochre);
+  box-shadow: 0 4px 20px rgba(196, 135, 42, 0.15);
+  transform: translateY(-2px);
+}
+.timeline-card.active {
+  background: linear-gradient(135deg, #fdf4e7 0%, #f0e0c0 100%);
+}
+
+/* Animated route line */
+@keyframes dashDraw {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Map container */
+.map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Page header */
+.page-header {
+  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+  border-bottom: 3px solid var(--ochre);
+}
+
+/* Academic note box */
+.academic-note {
+  background: linear-gradient(135deg, #fdf8f0 0%, #f5edd6 100%);
+  border-left: 4px solid var(--ochre);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Status chip */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.status-chip.traditional {
+  background: rgba(196, 135, 42, 0.12);
+  color: var(--ochre-dark);
+  border: 1px solid rgba(196, 135, 42, 0.3);
+}
+.status-chip.disputed {
+  background: rgba(184, 92, 56, 0.12);
+  color: var(--terracotta-dark);
+  border: 1px solid rgba(184, 92, 56, 0.3);
+}
+.status-chip.archaeological {
+  background: rgba(92, 122, 78, 0.12);
+  color: var(--sage-dark);
+  border: 1px solid rgba(92, 122, 78, 0.3);
+}

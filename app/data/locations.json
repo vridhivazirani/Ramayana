@@ -1,0 +1,275 @@
+[
+  {
+    "id": "ayodhya",
+    "name": "Ayodhya",
+    "modernIdentification": "Ayodhya, Uttar Pradesh",
+    "coordinates": [26.7922, 82.1998],
+    "kanda": "Bala Kanda",
+    "description": "The capital of the Kosala kingdom and birthplace of Rama, Ayodhya is described in the Valmiki text as a prosperous city on the banks of the Sarayu river, renowned for its wealth, fortifications, and the Ikshvaku lineage. The narrative of the Bala Kanda opens with an extended description of the city's grandeur before introducing King Dasharatha and his sons. Modern Ayodhya, situated in present-day Uttar Pradesh, preserves a continuous tradition of association with the epic that spans at least two millennia.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Bala Kanda, Sarga 5–6 (Baroda Critical Edition, Oriental Institute, 1960)",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998",
+      "Levi, Sylvain — 'La Géographie de Vālmīki.' Journal Asiatique, 1890"
+    ],
+    "sequenceOrder": 1
+  },
+  {
+    "id": "mithila",
+    "name": "Mithila",
+    "modernIdentification": "Janakpur, Madhesh Province, Nepal",
+    "coordinates": [26.7086, 85.9267],
+    "kanda": "Bala Kanda",
+    "description": "Capital of the Videha kingdom and seat of King Janaka, Mithila is the setting for Rama's stringing of Shiva's great bow and his subsequent betrothal to Sita. The text describes the city as surrounded by cultivated fields and well-watered gardens. Janakpur in southern Nepal is the predominant modern identification, supported by sustained regional tradition and the discovery of medieval inscriptions referencing the Janaka lineage.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Bala Kanda, Sarga 30–73 (Baroda Critical Edition)",
+      "Witzel, Michael — 'The Home of the Aryans.' Festschrift Narten, 2000",
+      "Brockington, John L. — Righteous Rama. Oxford University Press, 1984"
+    ],
+    "sequenceOrder": 2
+  },
+  {
+    "id": "shringaverapura",
+    "name": "Sringaverapura",
+    "modernIdentification": "Shringverpur, Uttar Pradesh",
+    "coordinates": [25.6000, 81.7167],
+    "kanda": "Ayodhya Kanda",
+    "description": "The first halt of Rama, Sita, and Lakshmana on their forest exile, Sringaverapura is the Nishada tribal territory on the Ganga's bank where the chieftain Guha offered them hospitality and ferried them across the river. Excavations at modern Shringverpur (near Prayagraj) from the 1970s onward uncovered a substantial ancient settlement with brick structures, water reservoirs, and pottery sequences suggesting continuous occupation from the Painted Grey Ware period through the early Common Era, providing independent material evidence corroborating the site's antiquity.",
+    "status": "archaeological",
+    "sources": [
+      "Valmiki, Ramayana — Ayodhya Kanda, Sarga 50–52 (Baroda Critical Edition)",
+      "Lal, B.B. — 'Excavations at Shringaverapura.' Indian Archaeology — A Review, 1979–80",
+      "Dikshit, K.N. — 'Shringaverapura: A Historical Analysis.' Puratattva 18, 1988"
+    ],
+    "sequenceOrder": 3
+  },
+  {
+    "id": "bharadwaj-ashram",
+    "name": "Bharadwaja's Ashram",
+    "modernIdentification": "Prayagraj (Allahabad), Uttar Pradesh",
+    "coordinates": [25.4358, 81.8463],
+    "kanda": "Ayodhya Kanda",
+    "description": "At the confluence of the Ganga and Yamuna rivers (the Triveni Sangam), the hermitage of the sage Bharadwaja served as a way-station for the exiled prince Rama and his companions. The sage redirected them southward toward Chitrakoot. Prayagraj's Sangam area has been identified with this ashram through unbroken tradition, and medieval texts such as the Prayaga Mahatmya reinforce the association. Bharadwaja's ashram is referenced in both the Ayodhya Kanda (outward journey) and again in the Yuddha Kanda when Bharata dispatches envoys seeking news of his brother.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Ayodhya Kanda, Sarga 54–55; Yuddha Kanda, Sarga 119 (Baroda Critical Edition)",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998",
+      "Sircar, D.C. — Studies in the Geography of Ancient and Medieval India. Motilal Banarsidass, 1971"
+    ],
+    "sequenceOrder": 4
+  },
+  {
+    "id": "chitrakoot",
+    "name": "Chitrakoot",
+    "modernIdentification": "Chitrakoot, Madhya Pradesh / Uttar Pradesh border",
+    "coordinates": [25.1862, 80.8967],
+    "kanda": "Ayodhya Kanda",
+    "description": "The forested hill complex where Rama, Sita, and Lakshmana spent the first years of the fourteen-year exile, Chitrakoot is described in the text as a mountain of many-colored rocks (the name means 'multi-hued peak') on the banks of the Mandakini. It was here that Bharata arrived to entreat Rama to return to Ayodhya and was refused. Chitrakoot remains among the most continuously venerated pilgrimage sites in the Ramayana itinerary, with an unbroken record of devotional visitation referenced in texts ranging from the Puranas to medieval travelogues.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Ayodhya Kanda, Sarga 94–116 (Baroda Critical Edition)",
+      "Vaidya, C.V. — The Riddle of the Ramayana. John Murray, 1906",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998"
+    ],
+    "sequenceOrder": 5
+  },
+  {
+    "id": "dandakaranya",
+    "name": "Dandakaranya",
+    "modernIdentification": "Bastar and surrounding forest regions, Chhattisgarh / Odisha / Telangana",
+    "coordinates": [19.9167, 82.0167],
+    "kanda": "Aranya Kanda",
+    "description": "Dandakaranya, the 'forest of Danda,' is the vast wilderness that Rama traverses for the bulk of the exile years, encountering various sages, demons, and forest-dwelling peoples. The text treats it as a geographically extensive zone rather than a single settlement, encompassing multiple hermitages and rakshasa territories. The region corresponds broadly to the densely forested tracts of central-eastern India, particularly present-day Bastar in Chhattisgarh, though no single modern location can be precisely equated with the textual Dandakaranya.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Aranya Kanda, Sarga 1–15 (Baroda Critical Edition)",
+      "Raghavan, V. — The Ramayana in Greater India. Saurashtra University, 1975",
+      "Brockington, John L. — Righteous Rama. Oxford University Press, 1984"
+    ],
+    "sequenceOrder": 6
+  },
+  {
+    "id": "agastya-ashram",
+    "name": "Agastya's Ashram",
+    "modernIdentification": "Agastyamalai foothills, Kerala / Tamil Nadu border",
+    "coordinates": [8.6167, 77.2833],
+    "kanda": "Aranya Kanda",
+    "description": "During the forest years, Rama visits the ashram of the celebrated sage Agastya, who presents him with divine weaponry — including the bow of Vishnu and the arrows of Brahma — and counsels him on the nature of righteous conduct. The Agastya tradition is closely associated with the southernmost reaches of the Indian subcontinent; the peak now called Agastyamalai (Agastya's Hill) near the Kerala-Tamil Nadu border preserves a strong regional memory of the sage's residence, referenced both in Sangam-era Tamil literature and in later Puranic geography.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Aranya Kanda, Sarga 11–14 (Baroda Critical Edition)",
+      "Hart, George L. & Heifetz, Hank — The Forest Book of the Ramayana of Kampan. University of California Press, 1988",
+      "Raghavan, V. — The Ramayana in Greater India. Saurashtra University, 1975"
+    ],
+    "sequenceOrder": 7
+  },
+  {
+    "id": "panchavati",
+    "name": "Panchavati",
+    "modernIdentification": "Nashik, Maharashtra",
+    "coordinates": [19.9975, 73.7898],
+    "kanda": "Aranya Kanda",
+    "description": "Panchavati — named for its five banyan trees — is the forest clearing on the Godavari where Rama, Sita, and Lakshmana built their hut and resided during the later portion of the exile. It is the scene of the encounter with the demoness Shurpanakha, whose mutilation by Lakshmana sets in motion the chain of events leading to Sita's abduction. The sacred grove at Nashik on the Godavari bears this name continuously; the text's geographical clues, including the southward direction of travel and the Godavari's presence, align with the Nashik identification.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Aranya Kanda, Sarga 15–17 (Baroda Critical Edition)",
+      "Pargiter, F.E. — Ancient Indian Historical Tradition. Oxford University Press, 1922",
+      "Sircar, D.C. — Studies in the Geography of Ancient and Medieval India. Motilal Banarsidass, 1971"
+    ],
+    "sequenceOrder": 8
+  },
+  {
+    "id": "janasthana",
+    "name": "Janasthana",
+    "modernIdentification": "Nashik surroundings, Maharashtra",
+    "coordinates": [20.0760, 73.9310],
+    "kanda": "Aranya Kanda",
+    "description": "Janasthana is identified in the text as the rakshasa stronghold in the Dandakaranya region, headquarters of Khara and Dushana, the generals who command fourteen thousand troops against Rama before his confrontation with Ravana's forces begins. The text locates it near Panchavati, and traditional identification places it in the vicinity of Nashik's outer forest regions. The Golakot or Dudhsagar area near Nashik has been proposed in regional scholarship as a candidate, though the identification remains approximate.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Aranya Kanda, Sarga 18–29 (Baroda Critical Edition)",
+      "Vaidya, C.V. — The Riddle of the Ramayana. John Murray, 1906",
+      "Raghavan, V. — The Ramayana in Greater India. Saurashtra University, 1975"
+    ],
+    "sequenceOrder": 9
+  },
+  {
+    "id": "rishyamukha",
+    "name": "Rishyamukha Hill",
+    "modernIdentification": "Anegundi, Karnataka (near Hampi)",
+    "coordinates": [15.3756, 76.4774],
+    "kanda": "Kishkindha Kanda",
+    "description": "The hill above the Pampa lake where the exiled Vanara king Sugriva sheltered with a small band of companions, Rishyamukha is the place of Rama and Lakshmana's first encounter with Hanuman, who initiates their alliance. The Tungabhadra River (identified with the Pampa of the text) near Anegundi and the cluster of granite hillocks north of Hampi correspond closely to the text's topographical description of a rocky eminence inaccessible to Vali by reason of a curse.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Kishkindha Kanda, Sarga 1–6 (Baroda Critical Edition)",
+      "Filliozat, Jean — 'Les données géographiques du Ramayana.' Bulletin de l'Ecole française d'Extrême-Orient, 1937",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998"
+    ],
+    "sequenceOrder": 10
+  },
+  {
+    "id": "kishkindha",
+    "name": "Kishkindha",
+    "modernIdentification": "Hampi region, Karnataka",
+    "coordinates": [15.335, 76.460],
+    "kanda": "Kishkindha Kanda",
+    "description": "Kishkindha is the subterranean-and-mountain Vanara kingdom ruled first by Vali and then by Sugriva after Rama's intervention. The rocky terrain of the Hampi-Hospet region in Karnataka, with its dramatic boulders, river gorges, and cave systems, has been associated with Kishkindha in regional tradition since at least the early medieval period, and Vijayanagara-era inscriptions explicitly invoke the connection. The Kishkindha Kanda's detailed description of the landscape — including the Malyavan and Malaya ranges, the Pampa lake, and Matanga's hermitage — is broadly consistent with the Tungabhadra basin terrain.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Kishkindha Kanda (Baroda Critical Edition)",
+      "Filliozat, Jean — 'Les données géographiques du Ramayana.' BEFEO, 1937",
+      "Wagoner, Phillip B. — Tidings of the King. University of Hawaii Press, 1993"
+    ],
+    "sequenceOrder": 11
+  },
+  {
+    "id": "sabari-ashram",
+    "name": "Sabari's Ashram",
+    "modernIdentification": "Shivamogga district, Karnataka (Shabari Hills region)",
+    "coordinates": [14.4667, 75.6333],
+    "kanda": "Kishkindha Kanda",
+    "description": "Before Rama reaches Kishkindha, the Aranya Kanda records a poignant encounter with the aged devotee Sabari at her hermitage near the Pampa lake, where she serves him wild fruit she has tested for sweetness. Various sites in the Western Ghats foothills are claimed as this hermitage; the Shabari Hills area in Karnataka's Shivamogga district holds a persistent regional tradition, though alternative identifications in Kerala and Maharashtra are also maintained by local communities. The site's precise location remains conventionally accepted rather than archaeologically established.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Aranya Kanda, Sarga 74–75 (Baroda Critical Edition)",
+      "Hart, George L. & Heifetz, Hank — The Forest Book of the Ramayana of Kampan. University of California Press, 1988",
+      "Raghavan, V. — The Ramayana in Greater India. Saurashtra University, 1975"
+    ],
+    "sequenceOrder": 12
+  },
+  {
+    "id": "rameswaram",
+    "name": "Rameswaram",
+    "modernIdentification": "Rameswaram, Tamil Nadu",
+    "coordinates": [9.2881, 79.3174],
+    "kanda": "Yuddha Kanda",
+    "description": "The coastal town and island sanctuary at the tip of the Indian peninsula from which Rama is said to have worshipped Shiva and organized the construction of the bridge to Lanka. Rameswaram's Ramanathaswamy temple complex is among the oldest pilgrimage centers in South India, with structural elements dating to the 12th century CE and textual references in medieval Shaiva and Vaishnava literature well before that. The location at the extreme southeastern tip of mainland India, separated from Sri Lanka by the shallow Palk Strait, aligns closely with the text's description of the launching point for the Setu construction.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Yuddha Kanda, Sarga 22–23 (Baroda Critical Edition)",
+      "Zvelebil, Kamil — The Smile of Murugan. Brill, 1973",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998"
+    ],
+    "sequenceOrder": 13
+  },
+  {
+    "id": "dhanushkodi",
+    "name": "Dhanushkodi",
+    "modernIdentification": "Dhanushkodi, Tamil Nadu",
+    "coordinates": [9.1833, 79.4167],
+    "kanda": "Yuddha Kanda",
+    "description": "The narrow land's-end promontory at the southeastern tip of Pamban Island, Dhanushkodi is traditionally identified as the location where Rama drew his bow (dhanush) to redirect the ocean or signal the start of the causeway's construction. The site was largely destroyed by a catastrophic cyclone in 1964; its ruins and the adjacent shallow waters are today both a pilgrimage endpoint and a geological curiosity. It marks the Indian terminus of the chain of shoals and sandbanks extending toward Sri Lanka.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Yuddha Kanda, Sarga 22 (Baroda Critical Edition)",
+      "Raghavan, V. — The Ramayana in Greater India. Saurashtra University, 1975",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998"
+    ],
+    "sequenceOrder": 14
+  },
+  {
+    "id": "rama-setu",
+    "name": "Rama Setu (Adam's Bridge)",
+    "modernIdentification": "Palk Strait / Gulf of Mannar, between India and Sri Lanka",
+    "coordinates": [9.1000, 79.5500],
+    "kanda": "Yuddha Kanda",
+    "description": "The chain of shoals, sandbars, and limestone shoals stretching approximately 48 km from Dhanushkodi (India) to Mannar Island (Sri Lanka) is identified in the Valmiki text as the Setu (causeway) constructed by the Vanaras under the architect Nala. The Arabic name 'Adam's Bridge' derives from an Islamic tradition associating the formation with Adam's passage to Ceylon. The feature is geologically real and is visible on satellite imagery; its origin is debated. Remote sensing studies by NASA and analyses by the Geological Survey of India have documented the shoal chain, but interpretations of its formation — natural sediment accumulation versus any anthropogenic element — remain an active scholarly and political controversy. This atlas presents both the textual identification and the scientific literature without endorsing a conclusion about the causeway's origin.",
+    "status": "disputed",
+    "sources": [
+      "Valmiki, Ramayana — Yuddha Kanda, Sarga 22–23 (Baroda Critical Edition)",
+      "Badrinarayanan, S. et al. — 'Was There a Land Connection Between India and Sri Lanka?' Geological Survey of India, 2007",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998",
+      "Rajendran, C.P. et al. — 'Adam's Bridge: A Geological Appraisal.' Current Science, 2011"
+    ],
+    "sequenceOrder": 15
+  },
+  {
+    "id": "lanka",
+    "name": "Lanka",
+    "modernIdentification": "Sri Lanka (traditional mainstream identification)",
+    "coordinates": [7.8731, 80.7718],
+    "kanda": "Yuddha Kanda",
+    "description": "Lanka, the island fortress-kingdom of Ravana, is the primary theater of the Yuddha Kanda — the war sequence constituting nearly a third of the epic. The Valmiki text describes it as an island to the south of the Indian subcontinent, situated beyond the ocean and accessible only via the constructed causeway. The identification of Lanka with the island of Sri Lanka has been the dominant scholarly and traditional position for centuries, supported by the text's directional geography, the Palk Strait crossing narrative, and continuous pilgrimage tradition. A minority scholarly view — principally advanced by certain Southeast Asian researchers — proposes a Suvarnabhumi (mainland Southeast Asia) location, citing the Sundara Kanda's voyage descriptions; this theory has not gained mainstream acceptance and is not adopted here as the primary identification.",
+    "status": "traditional",
+    "alternateTheory": "Minority Suvarnabhumi (Southeast Asia) theory: Some researchers, including S. Paranavitana and regional Southeast Asian scholars, have argued from navigational and botanical details in the Sundara Kanda that Lanka may refer to a location further east. This identification is not accepted by the majority of Indological scholarship.",
+    "sources": [
+      "Valmiki, Ramayana — Sundara Kanda, Yuddha Kanda (Baroda Critical Edition)",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998",
+      "Paranavitana, S. — 'The Aryan Settlements in Ceylon.' University of Ceylon Review, 1950",
+      "Raghavan, V. — The Ramayana in Greater India. Saurashtra University, 1975"
+    ],
+    "sequenceOrder": 16
+  },
+  {
+    "id": "trikuta",
+    "name": "Trikuta / Suvela Mountain",
+    "modernIdentification": "Sri Lanka central highlands (precise location debated)",
+    "coordinates": [7.2906, 80.6337],
+    "kanda": "Yuddha Kanda",
+    "description": "The Valmiki text identifies Lanka's fortress as built atop the three-peaked Trikuta mountain, with the broader Suvela range forming the backdrop for several episodes of the Yuddha Kanda. Within the scholarly tradition that accepts Sri Lanka as Lanka's location, various highland formations have been proposed for Trikuta — including the Sigiriya rock formation and peaks in the central hill country — but no consensus candidate has emerged. The identification remains an open question within the mainstream Sri Lanka framework, and this entry reflects the geographic uncertainty acknowledged in the literature.",
+    "status": "disputed",
+    "sources": [
+      "Valmiki, Ramayana — Yuddha Kanda, Sarga 2–4 (Baroda Critical Edition)",
+      "Brockington, John L. — The Sanskrit Epics. Brill, 1998",
+      "Paranavitana, S. — Sigiri Graffiti. Oxford University Press, 1956"
+    ],
+    "sequenceOrder": 17
+  },
+  {
+    "id": "ayodhya-return",
+    "name": "Ayodhya (Return / Coronation)",
+    "modernIdentification": "Ayodhya, Uttar Pradesh",
+    "coordinates": [26.8000, 82.2100],
+    "kanda": "Uttara Kanda",
+    "description": "The final arc of Rama's journey returns to Ayodhya, where the Pushpaka Vimana descends and Rama's coronation (Rama-rajya) is celebrated. The Uttara Kanda, considered by many textual scholars to be a later addition to the core Valmiki composition, extends the narrative through Sita's banishment and the ashvamedha. Ayodhya thus functions as both the narrative's origin and its culmination, closing the geographic circuit of the exile and return.",
+    "status": "traditional",
+    "sources": [
+      "Valmiki, Ramayana — Yuddha Kanda, Sarga 127–128; Uttara Kanda (Baroda Critical Edition)",
+      "Goldman, Robert P. — The Ramayana of Valmiki, Vol. 1. Princeton University Press, 1984",
+      "Brockington, John L. — Righteous Rama. Oxford University Press, 1984"
+    ],
+    "sequenceOrder": 18
+  }
+]
