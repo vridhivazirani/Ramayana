@@ -59,6 +59,16 @@ export default function Nav() {
                 </Link>
               );
             })}
+
+            {/* Replay Intro Button */}
+            <button
+              onClick={() => window.dispatchEvent(new Event('replay-ramayana-intro'))}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-sm text-sm font-medium text-stone-light hover:text-ochre-light hover:bg-white/5 transition-all duration-200 ml-1"
+              title="Replay Cinematic Intro"
+            >
+              <span className="text-base leading-none">🎬</span>
+              <span className="hidden lg:inline">Replay Intro</span>
+            </button>
           </div>
 
           {/* Mobile hamburger */}
@@ -107,6 +117,18 @@ export default function Nav() {
                   </Link>
                 );
               })}
+
+              {/* Mobile Replay Intro Button */}
+              <button
+                onClick={() => {
+                  setMenuOpen(false);
+                  window.dispatchEvent(new Event('replay-ramayana-intro'));
+                }}
+                className="flex items-center gap-2 px-3 py-2.5 rounded text-sm font-medium text-stone-light hover:text-ochre-light hover:bg-white/5 transition-colors text-left"
+              >
+                <span>🎬</span>
+                <span>Replay Intro</span>
+              </button>
             </div>
           </motion.div>
         )}

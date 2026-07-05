@@ -6,6 +6,7 @@ import { Location, StatusType } from '@/types';
 import DetailPanel from '@/components/DetailPanel';
 import Legend from '@/components/Legend';
 import locationsData from '@/data/locations.json';
+import SplashIntro from '@/components/SplashIntro';
 
 // Dynamic import with SSR disabled — Leaflet requires browser APIs
 const MapView = dynamic(() => import('@/components/MapView'), {
@@ -26,6 +27,8 @@ export default function HomePage() {
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [activeFilters, setActiveFilters] = useState<Set<StatusType>>(new Set(ALL_STATUSES));
   const [isMobile, setIsMobile] = useState(false);
+  const [introComplete, setIntroComplete] = useState(false);
+  const [forcePlayIntro, setForcePlayIntro] = useState(false);
 
   const locations = locationsData as Location[];
 
@@ -34,6 +37,16 @@ export default function HomePage() {
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // Listen for the custom "replay-ramayana-intro" event to play it again
+  useEffect(() => {
+    const handleReplay = () => {
+      setForcePlayIntro(true);
+      setIntroComplete(false);
+    };
+    window.addEventListener('replay-ramayana-intro', handleReplay);
+    return () => window.removeEventListener('replay-ramayana-intro', handleReplay);
   }, []);
 
   const handleToggleFilter = (status: StatusType) => {
@@ -58,34 +71,48 @@ export default function HomePage() {
   };
 
   return (
-    <main className="fixed inset-0 top-14" id="map-page">
-      {/* Map fills viewport below nav */}
-      <div className="map-wrapper w-full h-full">
-        <MapView
-          locations={locations}
-          activeFilters={activeFilters}
-          selectedLocation={selectedLocation}
-          onSelectLocation={handleSelectLocation}
+    <>
+      {/* Cinematic Splash Intro Overlay */}
+      {!introComplete && (
+        <SplashIntro
+          onComplete={() => {
+            setIntroComplete(true);
+            setForcePlayIntro(false);
+          }}
+          forcePlay={forcePlayIntro}
         />
-        <Legend activeFilters={activeFilters} onToggle={handleToggleFilter} />
-      </div>
+      )}
 
-      {/* Location count indicator */}
-      <div
-        id="location-count"
-        className="absolute bottom-8 right-4 z-[900] bg-mist/90 border border-stone-lighter rounded-lg px-3 py-2 text-xs text-stone"
-        style={{ backdropFilter: 'blur(6px)' }}
-      >
-        <span className="font-semibold text-ink">{locations.filter(l => activeFilters.has(l.status)).length}</span>
-        <span> of {locations.length} sites shown</span>
-      </div>
+      <main className="fixed inset-0 top-14" id="map-page">
+        {/* Map fills viewport below nav */}
+        <div className="map-wrapper w-full h-full">
+          <MapView
+            locations={locations}
+            activeFilters={activeFilters}
+            selectedLocation={selectedLocation}
+            onSelectLocation={handleSelectLocation}
+          />
+          <Legend activeFilters={activeFilters} onToggle={handleToggleFilter} />
+        </div>
 
-      {/* Detail panel */}
-      <DetailPanel
-        location={selectedLocation}
-        onClose={handleClosePanel}
-        isMobile={isMobile}
-      />
-    </main>
+        {/* Location count indicator */}
+        <div
+          id="location-count"
+          className="absolute bottom-8 right-4 z-[900] bg-mist/90 border border-stone-lighter rounded-lg px-3 py-2 text-xs text-stone"
+          style={{ backdropFilter: 'blur(6px)' }}
+        >
+          <span className="font-semibold text-ink">{locations.filter(l => activeFilters.has(l.status)).length}</span>
+          <span> of {locations.length} sites shown</span>
+        </div>
+
+        {/* Detail panel */}
+        <DetailPanel
+          location={selectedLocation}
+          onClose={handleClosePanel}
+          isMobile={isMobile}
+        />
+      </main>
+    </>
   );
 }
+
