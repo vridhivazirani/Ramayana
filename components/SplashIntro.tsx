@@ -7,12 +7,6 @@ import Image from 'next/image';
 // The full cinematic sequence — each scene shown as a full-bleed photo
 const SCENES = [
   {
-    src: '/intro/hanuman_heart.png',
-    duration: 1400,
-    caption: 'In his heart, Rama & Sita reside forever',
-    zoom: 1.06,
-  },
-  {
     src: '/intro/ayodhya.png',
     duration: 900,
     caption: 'Ayodhya — The Golden Kingdom',
@@ -58,7 +52,6 @@ interface SplashIntroProps {
 
 export default function SplashIntro({ onComplete, forcePlay = false }: SplashIntroProps) {
   const [sceneIndex, setSceneIndex] = useState(0);
-  const [showTitle, setShowTitle] = useState(false);
   const [bowZoom, setBowZoom] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [done, setDone] = useState(false);
@@ -75,12 +68,6 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
     if (done) return;
 
     const scene = SCENES[sceneIndex];
-
-    // Show title text after first scene settles
-    if (sceneIndex === 0) {
-      const t = setTimeout(() => setShowTitle(true), 300);
-      return () => clearTimeout(t);
-    }
 
     // Bow scene — zoom in and then fade out
     if (scene.isBowScene) {
@@ -176,30 +163,8 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
             backgroundSize: '100% 3px', zIndex: 6, opacity: 0.5,
           }} />
 
-          {/* ── HANUMAN SCENE — title & caption ── */}
-          {sceneIndex === 0 && (
-            <div className="absolute inset-0 flex flex-col items-center justify-end pb-20" style={{ zIndex: 20 }}>
-              <AnimatePresence>
-                {showTitle && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                    className="flex flex-col items-center gap-3"
-                  >
-                    <p className="font-serif text-center text-sm tracking-[0.35em] uppercase"
-                      style={{ color: 'rgba(232, 181, 102, 0.9)' }}>
-                      {scene.caption}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
-
           {/* ── STORY SCENES — caption ── */}
-          {sceneIndex > 0 && !scene.isBowScene && (
+          {!scene.isBowScene && (
             <AnimatePresence mode="wait">
               <motion.div
                 key={`cap-${sceneIndex}`}
