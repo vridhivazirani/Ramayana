@@ -2,15 +2,22 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+
+// Cinematic photo frames — each shows for ~400ms
+const PHOTO_FRAMES = [
+  { src: '/intro/ayodhya.png',        label: 'Ayodhya — The Golden Kingdom' },
+  { src: '/intro/rama_bow.png',       label: 'Rama — The Divine Archer' },
+  { src: '/intro/hanuman_flying.png', label: 'Hanuman — Messenger of the Gods' },
+  { src: '/intro/ram_setu.png',       label: 'Ram Setu — Bridge Across the Sea' },
+  { src: '/intro/lanka_burning.png',  label: 'Lanka — The Fall of Darkness' },
+];
 
 // Selected Sanskrit verses from the Valmiki Ramayana
 const SANSKRIT_VERSES = [
   'रामाय रामभद्राय रामचन्द्राय वेधसे । रघुनाथाय नाथाय सीतायाः पतये नमः ॥',
   'धर्मो रक्षति रक्षितः ।',
   'जननी जन्मभूमिश्च स्वर्गादपि गरीयसी ॥',
-  'कूजन्तं राम रामेति मधुरं मधुराक्षरम् । आरुह्य कविताशाखां वन्दे वाल्मीकिकोकिलम् ॥',
-  'सत्यमेवेश्वरो लोके सत्यं पद्मा समाश्रिता । सत्यमूलानि सर्वाणि सत्यान्नास्ति परं पदम् ॥',
-  'न भीतो मरणादस्मि केवलं दूषितं यशः ।',
 ];
 
 interface SplashIntroProps {
@@ -21,30 +28,36 @@ interface SplashIntroProps {
 export default function SplashIntro({ onComplete, forcePlay = false }: SplashIntroProps) {
   const [frameIndex, setFrameIndex] = useState(0);
   const [phase, setPhase] = useState<'flipping' | 'reveal' | 'fadeout'>('flipping');
+  const [verseIndex, setVerseIndex] = useState(0);
 
-  // Check session storage to skip intro in production (always play in development for debugging)
+  // Skip if already played this session
   useEffect(() => {
     if (!forcePlay && process.env.NODE_ENV === 'production') {
       const hasPlayed = sessionStorage.getItem('ramayana_intro_played');
-      if (hasPlayed === 'true') {
-        onComplete();
-      }
+      if (hasPlayed === 'true') onComplete();
     }
   }, [onComplete, forcePlay]);
 
-  // Flipbook Frame Interval (runs every 65ms)
+  // Photo flipbook — cycles through all 5 images then holds last
   useEffect(() => {
     if (phase !== 'flipping') return;
 
+    // Each frame shows for 420ms, total ~2.1s for all 5
     const interval = setInterval(() => {
-      setFrameIndex((prev) => (prev + 1) % 18); // 18 frames in total cycle
-    }, 65);
+      setFrameIndex((prev) => {
+        const next = prev + 1;
+        if (next >= PHOTO_FRAMES.length) {
+          clearInterval(interval);
+          return prev; // hold last frame
+        }
+        return next;
+      });
+    }, 420);
 
-    // After 2.2 seconds, transition to the golden reveal phase
+    // After all frames + a brief hold, go to golden reveal
     const timer = setTimeout(() => {
       setPhase('reveal');
-      clearInterval(interval);
-    }, 2200);
+    }, 2400);
 
     return () => {
       clearInterval(interval);
@@ -52,15 +65,14 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
     };
   }, [phase]);
 
-  // Handle the end of the reveal phase (fade out splash screen)
+  // Cycle verses during reveal
   useEffect(() => {
     if (phase !== 'reveal') return;
-
-    const timer = setTimeout(() => {
-      setPhase('fadeout');
-    }, 1400); // Golden shine display duration
-
-    return () => clearTimeout(timer);
+    const interval = setInterval(() => {
+      setVerseIndex((prev) => (prev + 1) % SANSKRIT_VERSES.length);
+    }, 600);
+    const timer = setTimeout(() => setPhase('fadeout'), 1600);
+    return () => { clearInterval(interval); clearTimeout(timer); };
   }, [phase]);
 
   useEffect(() => {
@@ -68,8 +80,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
       const timer = setTimeout(() => {
         sessionStorage.setItem('ramayana_intro_played', 'true');
         onComplete();
-      }, 500); // Fade animation duration
-
+      }, 600);
       return () => clearTimeout(timer);
     }
   }, [phase, onComplete]);
@@ -79,79 +90,6 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
     onComplete();
   };
 
-  // Render the background image/silhouette/text for the current flipbook frame
-  const renderFrameContent = (index: number) => {
-    const verseIndex = index % SANSKRIT_VERSES.length;
-    const isTextFrame = index % 3 === 0;
-
-    if (isTextFrame) {
-      return (
-        <div style={{ backgroundColor: '#1c1917' }} className="w-full h-full flex flex-col items-center justify-center p-4 text-center border border-ochre/25">
-          <p className="text-ochre-light font-serif text-lg md:text-xl font-bold leading-relaxed max-w-xl px-4 select-none filter drop-shadow-md">
-            {SANSKRIT_VERSES[verseIndex]}
-          </p>
-        </div>
-      );
-    }
-
-    // SVG graphics representing different elements of the epic
-    switch (index % 6) {
-      case 1: // Bow & Arrow
-        return (
-          <div style={{ backgroundColor: '#0c0a09' }} className="w-full h-full flex items-center justify-center">
-            <svg className="w-1/3 h-1/3 text-ochre/40" viewBox="0 0 100 100" fill="currentColor">
-              <path d="M50 10 C 25 35, 25 65, 50 90 M 50 10 L 50 90 M 15 50 L 85 50 M 80 47 L 85 50 L 80 53" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-            </svg>
-          </div>
-        );
-      case 2: // Temple/Fortress Silhouette
-        return (
-          <div style={{ backgroundColor: '#1c1917' }} className="w-full h-full flex items-center justify-center">
-            <svg className="w-1/3 h-1/3 text-terracotta/40" viewBox="0 0 100 100" fill="currentColor">
-              <path d="M10 90 L90 90 L90 70 L80 70 L80 50 L50 20 L20 50 L20 70 L10 70 Z M50 20 L50 10 M47 10 L53 10" stroke="currentColor" strokeWidth="2" fill="none" />
-              <circle cx="50" cy="50" r="6" stroke="currentColor" strokeWidth="1.5" fill="none" />
-            </svg>
-          </div>
-        );
-      case 3: // Hanuman carrying Dronagiri Mountain
-        return (
-          <div style={{ backgroundColor: '#0c0a09' }} className="w-full h-full flex items-center justify-center">
-            <svg className="w-1/3 h-1/3 text-sage/40" viewBox="0 0 100 100" fill="currentColor">
-              <path d="M20 75 C 30 75, 35 60, 40 50 C 45 40, 50 30, 65 35 C 75 40, 80 55, 75 75 Z M 55 35 L 75 15 L 85 25 Z" stroke="currentColor" strokeWidth="2" fill="none" />
-              <path d="M65 35 L 70 30 L 75 35" stroke="currentColor" strokeWidth="2" fill="none" />
-            </svg>
-          </div>
-        );
-      case 4: // Rama's Chariot Wheel
-        return (
-          <div className="w-full h-full flex items-center justify-center bg-stone-900">
-            <svg className="w-1/3 h-1/3 text-ochre/30 animate-spin" style={{ animationDuration: '8s' }} viewBox="0 0 100 100" fill="currentColor">
-              <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="3" fill="none" />
-              <circle cx="50" cy="50" r="8" stroke="currentColor" strokeWidth="2" fill="none" />
-              {Array.from({ length: 8 }).map((_, i) => {
-                const angle = (i * Math.PI) / 4;
-                const x2 = 50 + 40 * Math.cos(angle);
-                const y2 = 50 + 40 * Math.sin(angle);
-                return <line key={i} x1="50" y1="50" x2={x2} y2={y2} stroke="currentColor" strokeWidth="2" />;
-              })}
-            </svg>
-          </div>
-        );
-      case 5: // Rama's footprints / Lotus
-        return (
-          <div className="w-full h-full flex items-center justify-center bg-stone-950">
-            <svg className="w-1/3 h-1/3 text-terracotta/30" viewBox="0 0 100 100" fill="currentColor">
-              <path d="M50 15 C45 35 30 45 50 85 C70 45 55 35 50 15 Z" stroke="currentColor" strokeWidth="2" fill="none" />
-              <path d="M50 35 C35 45 25 60 50 85 C75 60 65 45 50 35 Z" stroke="currentColor" strokeWidth="1.5" fill="none" />
-              <path d="M50 55 C40 60 35 70 50 85 C65 70 60 60 50 55 Z" stroke="currentColor" strokeWidth="1" fill="none" />
-            </svg>
-          </div>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <AnimatePresence>
       {phase !== 'fadeout' && (
@@ -159,55 +97,137 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
           id="splash-overlay"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none overflow-hidden"
-          style={{ backgroundColor: '#0c0a09' }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          style={{ backgroundColor: '#0a0806', position: 'fixed', inset: 0, zIndex: 9999 }}
+          className="flex flex-col items-center justify-center select-none overflow-hidden"
         >
-          {/* Cinematic Scanning Lines background */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,15,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[size:100%_4px,6px_100%] pointer-events-none opacity-40" />
+          {/* ── Background: full-bleed photo during flipping ── */}
+          <AnimatePresence mode="wait">
+            {phase === 'flipping' && (
+              <motion.div
+                key={frameIndex}
+                initial={{ opacity: 0, scale: 1.08 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={PHOTO_FRAMES[frameIndex].src}
+                  alt={PHOTO_FRAMES[frameIndex].label}
+                  fill
+                  priority
+                  className="object-cover"
+                  style={{ filter: 'brightness(0.45) saturate(1.2)' }}
+                />
+                {/* Dark gradient overlay so text is legible */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(to top, rgba(10,8,6,0.92) 0%, rgba(10,8,6,0.3) 50%, rgba(10,8,6,0.55) 100%)',
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          {/* Vignette Shadow Overlay */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(12,10,9,0.9)_100%)] pointer-events-none" />
+          {/* ── Background: deep dark for golden reveal ── */}
+          {phase === 'reveal' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="absolute inset-0"
+              style={{ backgroundColor: '#0a0806' }}
+            >
+              {/* Last photo dimmed behind the title */}
+              <Image
+                src={PHOTO_FRAMES[PHOTO_FRAMES.length - 1].src}
+                alt=""
+                fill
+                className="object-cover"
+                style={{ filter: 'brightness(0.12) saturate(0.6)' }}
+              />
+              <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, rgba(10,8,6,0.2) 0%, rgba(10,8,6,0.95) 70%)' }} />
+            </motion.div>
+          )}
 
-          {/* Golden Flash Border */}
-          <motion.div
-            initial={{ opacity: 0.2 }}
-            animate={phase === 'reveal' ? { 
-              opacity: [0.2, 0.9, 0.2], 
-              borderColor: ['rgba(196,135,42,0.15)', 'rgba(196,135,42,0.65)', 'rgba(196,135,42,0.15)']
-            } : {}}
-            transition={{ duration: 1.4 }}
-            className="absolute inset-4 border border-ochre/20 rounded-md pointer-events-none"
+          {/* ── Cinematic scan-lines ── */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(18,16,15,0) 50%, rgba(0,0,0,0.22) 50%)',
+              backgroundSize: '100% 4px',
+              opacity: 0.5,
+              zIndex: 1,
+            }}
           />
 
-          {/* Skip Button */}
+          {/* ── Vignette ── */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse at center, transparent 35%, rgba(5,3,2,0.85) 100%)',
+              zIndex: 2,
+            }}
+          />
+
+          {/* ── Photo caption during flipping ── */}
+          {phase === 'flipping' && (
+            <motion.p
+              key={`caption-${frameIndex}`}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 0.7, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute bottom-16 left-0 right-0 text-center font-serif tracking-[0.22em] uppercase text-xs"
+              style={{ color: '#C4872A', zIndex: 10, letterSpacing: '0.25em' }}
+            >
+              {PHOTO_FRAMES[frameIndex].label}
+            </motion.p>
+          )}
+
+          {/* ── Skip button ── */}
           <button
             onClick={handleSkip}
-            className="absolute top-8 right-8 z-50 border border-ochre/20 hover:border-ochre/50 rounded-full px-4 py-1.5 text-xs text-stone hover:text-ochre-light transition-all duration-300 backdrop-blur-sm"
-            style={{ backgroundColor: 'rgba(12,10,9,0.8)' }}
+            className="absolute top-8 right-8 rounded-full px-4 py-1.5 text-xs transition-all duration-300 backdrop-blur-sm"
+            style={{
+              zIndex: 50,
+              border: '1px solid rgba(196,135,42,0.25)',
+              color: 'rgba(196,135,42,0.7)',
+              backgroundColor: 'rgba(10,8,6,0.7)',
+            }}
           >
             Skip Intro
           </button>
 
-          {/* Main Title Container */}
-          <div className="relative w-full max-w-4xl px-4 flex flex-col items-center justify-center">
-            {/* The Cinematic Zooming Logo */}
+          {/* ── Main title ── */}
+          <div
+            className="relative w-full max-w-4xl px-4 flex flex-col items-center justify-center"
+            style={{ zIndex: 20 }}
+          >
             <motion.div
-              initial={{ scale: 1.12, filter: 'blur(3px)' }}
-              animate={phase === 'reveal' 
-                ? { scale: 1, filter: 'blur(0px)' } 
-                : { scale: 1.04, filter: 'blur(0px)' }
+              initial={{ scale: 1.1, filter: 'blur(4px)' }}
+              animate={
+                phase === 'reveal'
+                  ? { scale: 1, filter: 'blur(0px)' }
+                  : { scale: 1.02, filter: 'blur(0px)' }
               }
-              transition={phase === 'reveal' 
-                ? { duration: 1.4, ease: 'easeOut' }
-                : { duration: 2.2, ease: 'linear' }
+              transition={
+                phase === 'reveal'
+                  ? { duration: 1.2, ease: 'easeOut' }
+                  : { duration: 2.4, ease: 'linear' }
               }
               className="w-full flex items-center justify-center"
             >
-              {/* SVG mask architecture ensures 100% browser compatibility (including Safari) */}
-              <svg className="w-full h-32 sm:h-44 md:h-56 filter drop-shadow-[0_0_20px_rgba(44,24,16,0.6)]" viewBox="0 0 1000 220">
+              {/* SVG mask: text shape filled with content */}
+              <svg
+                className="w-full drop-shadow-2xl"
+                style={{ height: 'clamp(80px, 18vw, 220px)' }}
+                viewBox="0 0 1000 220"
+              >
                 <defs>
-                  {/* Text mask: Only white content displays */}
                   <mask id="ramayana-text-mask" x="0" y="0" width="1000" height="220">
                     <rect x="0" y="0" width="1000" height="220" fill="black" />
                     <text
@@ -216,82 +236,73 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
                       textAnchor="middle"
                       dominantBaseline="central"
                       fill="white"
-                      className="font-sans"
                       style={{
                         fontSize: '115px',
                         fontWeight: 900,
                         letterSpacing: '0.16em',
-                        textTransform: 'uppercase',
+                        fontFamily: 'serif',
                       }}
                     >
-                      Ramayana
+                      RAMAYANA
                     </text>
                   </mask>
 
-                  {/* Golden color gradient for the final reveal */}
+                  {/* Golden gradient for reveal */}
                   <linearGradient id="gold-shimmer" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#F8F5EE" />
-                    <stop offset="35%" stopColor="#E8B566" />
-                    <stop offset="70%" stopColor="#C4872A" />
+                    <stop offset="0%"   stopColor="#F8F5EE" />
+                    <stop offset="35%"  stopColor="#E8B566" />
+                    <stop offset="70%"  stopColor="#C4872A" />
                     <stop offset="100%" stopColor="#8C3D22" />
                   </linearGradient>
 
-                  {/* Golden border glow filter */}
-                  <filter id="gold-glow">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-
-                  {/* Shimmer light sweep */}
+                  {/* Shimmer sweep */}
                   <linearGradient id="shimmer-sweep" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="rgba(255,255,255,0)" />
-                    <stop offset="50%" stopColor="rgba(255,255,255,0.4)" />
+                    <stop offset="0%"   stopColor="rgba(255,255,255,0)" />
+                    <stop offset="50%"  stopColor="rgba(255,255,255,0.45)" />
                     <stop offset="100%" stopColor="rgba(255,255,255,0)" />
                   </linearGradient>
+
+                  {/* Glow filter */}
+                  <filter id="gold-glow">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
                 </defs>
 
-                {/* Layer 1: The masked content group */}
+                {/* Layer 1: Photo or gold inside text mask */}
                 <g mask="url(#ramayana-text-mask)">
-                  {/* Default back plate */}
-                  <rect x="0" y="0" width="1000" height="220" fill="#1c1917" />
-
-                  {/* Flipping canvas inside text mask */}
-                  {phase === 'flipping' && (
-                    <foreignObject x="0" y="0" width="1000" height="220">
-                      <div style={{ backgroundColor: '#0c0a09' }} className="w-full h-full relative overflow-hidden">
-                        {renderFrameContent(frameIndex)}
-                      </div>
-                    </foreignObject>
-                  )}
-
-                  {/* Golden plate reveal */}
-                  {phase !== 'flipping' && (
+                  {phase === 'flipping' ? (
+                    /* Show current photo cropped to text shape */
+                    <image
+                      href={PHOTO_FRAMES[frameIndex].src}
+                      x="0" y="0" width="1000" height="220"
+                      preserveAspectRatio="xMidYMid slice"
+                      style={{ filter: 'brightness(1.3) saturate(1.4)' }}
+                    />
+                  ) : (
+                    /* Golden plate on reveal */
                     <rect x="0" y="0" width="1000" height="220" fill="url(#gold-shimmer)" />
                   )}
                 </g>
 
-                {/* Layer 2: Shimmer overlay sweep on reveal */}
+                {/* Layer 2: Shimmer sweep on reveal */}
                 {phase === 'reveal' && (
                   <g mask="url(#ramayana-text-mask)">
                     <motion.rect
                       initial={{ x: -1000 }}
-                      animate={{ x: 1000 }}
+                      animate={{ x: 1200 }}
                       transition={{ duration: 1.4, ease: 'easeInOut' }}
-                      x="0"
-                      y="0"
-                      width="1000"
-                      height="220"
+                      x="0" y="0" width="600" height="220"
                       fill="url(#shimmer-sweep)"
-                      className="mix-blend-overlay"
                     />
                   </g>
                 )}
 
-                {/* Layer 3: Subtle vector border glow when golden reveal occurs */}
-                {phase !== 'flipping' && (
+                {/* Layer 3: Golden glow border on reveal */}
+                {phase === 'reveal' && (
                   <text
                     x="50%"
                     y="50%"
@@ -301,41 +312,66 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
                     stroke="#E8B566"
                     strokeWidth="1.5"
                     filter="url(#gold-glow)"
-                    className="font-sans pointer-events-none"
                     style={{
                       fontSize: '115px',
                       fontWeight: 900,
                       letterSpacing: '0.16em',
-                      textTransform: 'uppercase',
-                      opacity: 0.7,
+                      fontFamily: 'serif',
+                      opacity: 0.65,
+                      pointerEvents: 'none',
                     }}
                   >
-                    Ramayana
+                    RAMAYANA
                   </text>
                 )}
               </svg>
             </motion.div>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={phase === 'reveal' ? { opacity: 0.8, y: 0 } : { opacity: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="mt-6 text-stone-light font-serif text-sm sm:text-base tracking-[0.32em] uppercase text-center filter drop-shadow-md"
+            {/* Subtitle + verse on reveal */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={phase === 'reveal' ? { opacity: 1, y: 0 } : { opacity: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="mt-6 flex flex-col items-center gap-3"
             >
-              Digital Humanities Atlas
-            </motion.p>
+              <p
+                className="font-serif text-sm sm:text-base tracking-[0.32em] uppercase text-center"
+                style={{ color: 'rgba(181,160,128,0.85)' }}
+              >
+                Digital Humanities Atlas
+              </p>
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={verseIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.55 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="font-serif text-center max-w-lg px-4 text-xs"
+                  style={{ color: '#C4872A', letterSpacing: '0.05em', lineHeight: 1.8 }}
+                >
+                  {SANSKRIT_VERSES[verseIndex]}
+                </motion.p>
+              </AnimatePresence>
+            </motion.div>
           </div>
 
-          {/* Ambient golden dust particles */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {phase === 'reveal' && (
-              <div className="absolute inset-0 bg-[radial-gradient(circle,_rgba(196,135,42,0.06)_1px,_transparent_1px)] bg-[size:20px_20px] opacity-40 animate-pulse" />
-            )}
-          </div>
+          {/* Ambient golden particles on reveal */}
+          {phase === 'reveal' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage:
+                  'radial-gradient(circle, rgba(196,135,42,0.07) 1px, transparent 1px)',
+                backgroundSize: '24px 24px',
+                zIndex: 3,
+              }}
+            />
+          )}
         </motion.div>
       )}
     </AnimatePresence>
   );
 }
-
