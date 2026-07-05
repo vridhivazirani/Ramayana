@@ -86,7 +86,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
 
     if (isTextFrame) {
       return (
-        <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center bg-stone-900 border border-ochre/25">
+        <div style={{ backgroundColor: '#1c1917' }} className="w-full h-full flex flex-col items-center justify-center p-4 text-center border border-ochre/25">
           <p className="text-ochre-light font-serif text-lg md:text-xl font-bold leading-relaxed max-w-xl px-4 select-none filter drop-shadow-md">
             {SANSKRIT_VERSES[verseIndex]}
           </p>
@@ -98,7 +98,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
     switch (index % 6) {
       case 1: // Bow & Arrow
         return (
-          <div className="w-full h-full flex items-center justify-center bg-stone-950">
+          <div style={{ backgroundColor: '#0c0a09' }} className="w-full h-full flex items-center justify-center">
             <svg className="w-1/3 h-1/3 text-ochre/40" viewBox="0 0 100 100" fill="currentColor">
               <path d="M50 10 C 25 35, 25 65, 50 90 M 50 10 L 50 90 M 15 50 L 85 50 M 80 47 L 85 50 L 80 53" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" fill="none" />
             </svg>
@@ -106,7 +106,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
         );
       case 2: // Temple/Fortress Silhouette
         return (
-          <div className="w-full h-full flex items-center justify-center bg-stone-900">
+          <div style={{ backgroundColor: '#1c1917' }} className="w-full h-full flex items-center justify-center">
             <svg className="w-1/3 h-1/3 text-terracotta/40" viewBox="0 0 100 100" fill="currentColor">
               <path d="M10 90 L90 90 L90 70 L80 70 L80 50 L50 20 L20 50 L20 70 L10 70 Z M50 20 L50 10 M47 10 L53 10" stroke="currentColor" strokeWidth="2" fill="none" />
               <circle cx="50" cy="50" r="6" stroke="currentColor" strokeWidth="1.5" fill="none" />
@@ -115,7 +115,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
         );
       case 3: // Hanuman carrying Dronagiri Mountain
         return (
-          <div className="w-full h-full flex items-center justify-center bg-stone-950">
+          <div style={{ backgroundColor: '#0c0a09' }} className="w-full h-full flex items-center justify-center">
             <svg className="w-1/3 h-1/3 text-sage/40" viewBox="0 0 100 100" fill="currentColor">
               <path d="M20 75 C 30 75, 35 60, 40 50 C 45 40, 50 30, 65 35 C 75 40, 80 55, 75 75 Z M 55 35 L 75 15 L 85 25 Z" stroke="currentColor" strokeWidth="2" fill="none" />
               <path d="M65 35 L 70 30 L 75 35" stroke="currentColor" strokeWidth="2" fill="none" />
@@ -160,7 +160,8 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-stone-950 select-none overflow-hidden"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none overflow-hidden"
+          style={{ backgroundColor: '#0c0a09' }}
         >
           {/* Cinematic Scanning Lines background */}
           <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,15,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[size:100%_4px,6px_100%] pointer-events-none opacity-40" />
@@ -182,7 +183,8 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
           {/* Skip Button */}
           <button
             onClick={handleSkip}
-            className="absolute top-8 right-8 z-50 border border-stone-800 hover:border-ochre/50 rounded-full px-4 py-1.5 text-xs text-stone hover:text-ochre-light transition-all duration-300 bg-stone-950/80 hover:bg-stone-900 backdrop-blur-sm"
+            className="absolute top-8 right-8 z-50 border border-ochre/20 hover:border-ochre/50 rounded-full px-4 py-1.5 text-xs text-stone hover:text-ochre-light transition-all duration-300 backdrop-blur-sm"
+            style={{ backgroundColor: 'rgba(12,10,9,0.8)' }}
           >
             Skip Intro
           </button>
@@ -259,7 +261,7 @@ export default function SplashIntro({ onComplete, forcePlay = false }: SplashInt
                   {/* Flipping canvas inside text mask */}
                   {phase === 'flipping' && (
                     <foreignObject x="0" y="0" width="1000" height="220">
-                      <div className="w-full h-full relative overflow-hidden bg-stone-950 scale-105">
+                      <div style={{ backgroundColor: '#0c0a09' }} className="w-full h-full relative overflow-hidden">
                         {renderFrameContent(frameIndex)}
                       </div>
                     </foreignObject>
